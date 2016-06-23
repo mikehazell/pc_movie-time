@@ -1,5 +1,6 @@
 const LOAD = 'LOAD';
 const SET_FILTER = 'SET_FILTER';
+const CLEAR_FILTERS = 'CLEAR_FILTERS';
 
 function getGenres(data) {
     return data.reduce((memo, item) => {
@@ -55,6 +56,12 @@ export function setFilter(filterType, filter) {
     };
 }
 
+export function clearFilters() {
+    return {
+        type: CLEAR_FILTERS,
+    };
+}
+
 const defaultState = {
     list: [],
     genres: [],
@@ -86,6 +93,10 @@ export function movies(state = defaultState, action) {
     case SET_FILTER:
         return Object.assign({}, state, {
             filters: updateFilters(state.filters, action.payload),
+        });
+    case CLEAR_FILTERS:
+        return Object.assign({}, state, {
+            filters: {},
         });
     default:
         return state;

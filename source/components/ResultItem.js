@@ -1,27 +1,37 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import {
     FILTER_GENRE,
     FILTER_LANG,
     FILTER_RATED,
 } from '../constants';
 
-const Filterable = ({ item, filter }) => (
-    <span
+import styles from './ResultItem.css';
+import { setFilter } from '../store/movies';
+
+function mapDispatchToProps(dispatch, { item, filterType }) {
+    return {
+        onClick: () => dispatch(setFilter(filterType, item)),
+    };
+}
+
+const Filterable = connect(null, mapDispatchToProps)(({ item, filter, onClick }) => (
+    <button
+        onClick={onClick}
+        className={styles.filterable}
         style={{
-            padding: 4,
-            margin: 2,
-            fontSize: 12,
             background: (filter === item) ? '#000' : '#EEE',
             color: (filter === item) ? '#FFF' : '#000',
         }}
     >
         {item}
-    </span>
-);
+    </button>
+));
 
 Filterable.propTypes = {
     item: PropTypes.string,
     filter: PropTypes.string,
+    filterType: PropTypes.string,
 };
 
 
@@ -42,7 +52,7 @@ class ResultItem extends React.Component {
         } = this.props;
 
         return (
-            <div>
+            <div className={styles.item}>
                 <h2>{title}</h2>
                 <p>
                     {genres.map((genre, index) =>
@@ -50,6 +60,7 @@ class ResultItem extends React.Component {
                             key={index}
                             item={genre}
                             filter={filters[FILTER_GENRE]}
+                            filterType={FILTER_GENRE}
                         />
                     )}
                 </p>
@@ -59,6 +70,7 @@ class ResultItem extends React.Component {
                             key={index}
                             item={lang}
                             filter={filters[FILTER_LANG]}
+                            filterType={FILTER_LANG}
                         />
                     )}
                 </p>
@@ -67,6 +79,7 @@ class ResultItem extends React.Component {
                         <Filterable
                             item={rated}
                             filter={filters[FILTER_RATED]}
+                            filterType={FILTER_RATED}
                         />
                         : null
                     }
