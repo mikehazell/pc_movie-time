@@ -19,6 +19,7 @@ function mapStateToProps(state) {
         genres: state.movies.genres,
         languages: state.movies.languages,
         rated: state.movies.rated,
+        filters: state.movies.filters,
     };
 }
 
@@ -28,6 +29,7 @@ class Filter extends React.Component {
         genres: PropTypes.array,
         languages: PropTypes.array,
         rated: PropTypes.array,
+        filters: PropTypes.object,
         setFilter: PropTypes.func,
     }
 
@@ -58,22 +60,35 @@ class Filter extends React.Component {
             genres,
             languages,
             rated,
+            filters,
         } = this.props;
         return (
             <div>
-                <select onChange={this.handleGenreChange} ref="genre">
+                <select
+                    onChange={this.handleGenreChange}
+                    ref="genre"
+                    value={filters[FILTER_GENRE]}
+                >
                     <option value="">Genre</option>
                     {genres.map((item, index) =>
                         <option key={index}>{item}</option>
                     )}
                 </select>
-                <select onChange={this.handleLanguageChange} ref="language">
+                <select
+                    onChange={this.handleLanguageChange}
+                    ref="language"
+                    value={filters[FILTER_LANG]}
+                >
                     <option value="">Language</option>
                     {languages.map((item, index) =>
                         <option key={index}>{item}</option>
                     )}
                 </select>
-                <select onChange={this.handleRatedChange} ref="rating">
+                <select
+                    onChange={this.handleRatedChange}
+                    ref="rating"
+                    value={filters[FILTER_RATED]}
+                >
                     <option value="">Rated</option>
                     {rated.map((item, index) =>
                         <option key={index}>{item}</option>
