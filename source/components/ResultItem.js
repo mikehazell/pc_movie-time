@@ -52,7 +52,7 @@ class ResultItem extends React.Component {
         } = this.props;
 
         return (
-            <div>
+            <div className={styles.item}>
                 <h2>{title}</h2>
                 <p>
                     {genres.map((genre, index) =>

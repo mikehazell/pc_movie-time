@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint source/scripts/**",
-    "dev": "watchify source/main.js -o http/assets/main.js -v",
+    "dev": "watchify -p [ css-modulesify -o http/assets/main.css ] source/main.js -o http/assets/main.js -v",
     "serve": "browser-sync start -s 'http' -f 'http' --no-online",
     "start": "browserify source/main.js -o http/assets/main.js"
   },
@@ -24,6 +24,9 @@
       [
         "babelify"
       ]
+    ],
+    "plugins": [
+      "css-modulesify"
     ]
   },
   "devDependencies": {
@@ -39,6 +42,7 @@
     "babelify": "^7.3.0",
     "browser-sync": "^2.13.0",
     "browserify": "^13.0.1",
+    "css-modulesify": "^0.25.1",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.9.2",

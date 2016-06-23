@@ -1,0 +1,14 @@
+.item {
+    border: 1px solid #ccc;
+}
+
+.filterable {
+    cursor: pointer;
+    fontSize: 12px;
+    margin: 2px;
+    padding: 4px;
+    border: 1px solid #ccc;
+}
+.filterable:hover {
+    border-color: #000;
+}
