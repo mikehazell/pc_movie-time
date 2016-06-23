@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import {
     FILTER_GENRE,
     FILTER_LANG,
+    FILTER_RATED,
 } from '../constants';
 
 const Filterable = ({ item, filter }) => (
@@ -36,8 +37,8 @@ class ResultItem extends React.Component {
 
     render() {
         const {
-            data: { title, genres, language },
             filters,
+            data: { title, genres, language, rated },
         } = this.props;
 
         return (
@@ -60,6 +61,15 @@ class ResultItem extends React.Component {
                             filter={filters[FILTER_LANG]}
                         />
                     )}
+                </p>
+                <p>
+                    {rated ?
+                        <Filterable
+                            item={rated}
+                            filter={filters[FILTER_RATED]}
+                        />
+                        : null
+                    }
                 </p>
             </div>
         );

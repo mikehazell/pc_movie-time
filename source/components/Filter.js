@@ -5,6 +5,7 @@ import { setFilter } from '../store/movies';
 import {
     FILTER_LANG,
     FILTER_GENRE,
+    FILTER_RATED,
 } from '../constants';
 
 function mapDispatchToProps(dispatch) {
@@ -17,6 +18,7 @@ function mapStateToProps(state) {
     return {
         genres: state.movies.genres,
         languages: state.movies.languages,
+        rated: state.movies.rated,
     };
 }
 
@@ -25,6 +27,7 @@ class Filter extends React.Component {
     static propTypes = {
         genres: PropTypes.array,
         languages: PropTypes.array,
+        rated: PropTypes.array,
         setFilter: PropTypes.func,
     }
 
@@ -32,6 +35,7 @@ class Filter extends React.Component {
         super(props);
         this.handleGenreChange = this.handleGenreChange.bind(this);
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
+        this.handleRatedChange = this.handleRatedChange.bind(this);
     }
 
     handleLanguageChange() {
@@ -44,10 +48,16 @@ class Filter extends React.Component {
         this.props.setFilter(FILTER_GENRE, newValue);
     }
 
+    handleRatedChange() {
+        const newValue = this.refs.rating.value;
+        this.props.setFilter(FILTER_RATED, newValue);
+    }
+
     render() {
         const {
             genres,
             languages,
+            rated,
         } = this.props;
         return (
             <div>
@@ -60,6 +70,12 @@ class Filter extends React.Component {
                 <select onChange={this.handleLanguageChange} ref="language">
                     <option value="">Language</option>
                     {languages.map((item, index) =>
+                        <option key={index}>{item}</option>
+                    )}
+                </select>
+                <select onChange={this.handleRatedChange} ref="rating">
+                    <option value="">Rated</option>
+                    {rated.map((item, index) =>
                         <option key={index}>{item}</option>
                     )}
                 </select>

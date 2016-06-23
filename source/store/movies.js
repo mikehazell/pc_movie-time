@@ -23,7 +23,7 @@ function getLanguages(data) {
     }, []);
 }
 
-function getRatings(data) {
+function getRated(data) {
     return data.reduce((memo, item) => {
         if (!memo.includes(item.rated)) {
             memo.push(item.rated);
@@ -59,7 +59,7 @@ const defaultState = {
     list: [],
     genres: [],
     languages: [],
-    ratings: [],
+    rated: [],
     filters: {},
     pending: true,
 };
@@ -81,7 +81,7 @@ export function movies(state = defaultState, action) {
             list: action.payload,
             genres: getGenres(action.payload),
             languages: getLanguages(action.payload),
-            ratings: getRatings(action.payload),
+            rated: getRated(action.payload),
         });
     case SET_FILTER:
         return Object.assign({}, state, {

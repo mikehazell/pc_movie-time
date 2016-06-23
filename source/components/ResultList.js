@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import {
+    FILTER_RATED,
+} from '../constants';
 
 import ResultItem from './ResultItem';
 
@@ -7,7 +10,12 @@ function applyFilters(filters, list) {
     const filterTypes = Object.keys(filters);
     return list.filter((item) => {
         return filterTypes.reduce((keep, filterType) => {
+            switch (filterType) {
+            case FILTER_RATED:
+                return keep && item[filterType] === filters[filterType];
+            default:
                 return keep && item[filterType].includes(filters[filterType]);
+            }
         }, true);
     });
 }
