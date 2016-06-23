@@ -1,4 +1,5 @@
 const LOAD = 'LOAD';
+const SET_FILTER = 'SET_FILTER';
 
 function getGenres(data) {
     return data.reduce((memo, item) => {
@@ -44,6 +45,16 @@ export function loadMovieData() {
     };
 }
 
+export function setFilter(filterType, filter) {
+    return {
+        type: SET_FILTER,
+        payload: {
+            filterType,
+            filter,
+        },
+    };
+}
+
 const defaultState = {
     list: [],
     genres: [],
@@ -62,6 +73,11 @@ export function movies(state = defaultState, action) {
             genres: getGenres(action.payload),
             languages: getLanguages(action.payload),
             ratings: getRatings(action.payload),
+        });
+    case SET_FILTER:
+        return Object.assign({}, state, {
+            filterType: action.payload.filterType,
+            filter: action.payload.filter,
         });
     default:
         return state;

@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { initializeStore } from './store';
 import { loadMovieData } from './store/movies';
 
+import Filter from './components/Filter';
 import ResultList from './components/ResultList';
 
 const store = initializeStore();
@@ -13,7 +14,10 @@ class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <ResultList />
+                <div>
+                    <Filter />
+                    <ResultList />
+                </div>
             </Provider>
         );
     }

@@ -22445,13 +22445,294 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _redux = require('redux');
+
 var _reactRedux = require('react-redux');
+
+var _movies = require('../store/movies');
+
+var _constants = require('../constants');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        setFilter: _movies.setFilter
+    }, dispatch);
+}
+
 function mapStateToProps(state) {
     return {
-        results: state.movies.list
+        genres: state.movies.genres,
+        languages: state.movies.languages
+    };
+}
+
+var Filter = (_dec = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps), _dec(_class = (_temp = _class2 = function (_React$Component) {
+    (0, _inherits3.default)(Filter, _React$Component);
+
+    function Filter(props) {
+        (0, _classCallCheck3.default)(this, Filter);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Filter).call(this, props));
+
+        _this.handleGenreChange = _this.handleGenreChange.bind(_this);
+        _this.handleLanguageChange = _this.handleLanguageChange.bind(_this);
+        return _this;
+    }
+
+    (0, _createClass3.default)(Filter, [{
+        key: 'handleLanguageChange',
+        value: function handleLanguageChange() {
+            var newValue = this.refs.language.value;
+            this.props.setFilter(_constants.FILTER_LANG, newValue);
+        }
+    }, {
+        key: 'handleGenreChange',
+        value: function handleGenreChange() {
+            var newValue = this.refs.genre.value;
+            this.props.setFilter(_constants.FILTER_GENRE, newValue);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props = this.props;
+            var genres = _props.genres;
+            var languages = _props.languages;
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'select',
+                    { onChange: this.handleGenreChange, ref: 'genre' },
+                    _react2.default.createElement(
+                        'option',
+                        { value: '' },
+                        'Genre'
+                    ),
+                    genres.map(function (item, index) {
+                        return _react2.default.createElement(
+                            'option',
+                            { key: index },
+                            item
+                        );
+                    })
+                ),
+                _react2.default.createElement(
+                    'select',
+                    { onChange: this.handleLanguageChange, ref: 'language' },
+                    _react2.default.createElement(
+                        'option',
+                        { value: '' },
+                        'Language'
+                    ),
+                    languages.map(function (item, index) {
+                        return _react2.default.createElement(
+                            'option',
+                            { key: index },
+                            item
+                        );
+                    })
+                )
+            );
+        }
+    }]);
+    return Filter;
+}(_react2.default.Component), _class2.propTypes = {
+    genres: _react.PropTypes.array,
+    languages: _react.PropTypes.array,
+    setFilter: _react.PropTypes.func
+}, _temp)) || _class);
+exports.default = Filter;
+
+},{"../constants":284,"../store/movies":287,"babel-runtime/core-js/object/get-prototype-of":4,"babel-runtime/helpers/classCallCheck":8,"babel-runtime/helpers/createClass":9,"babel-runtime/helpers/inherits":10,"babel-runtime/helpers/possibleConstructorReturn":11,"react":270,"react-redux":128,"redux":277}],282:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _constants = require('../constants');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ResultItem = (_temp = _class = function (_React$Component) {
+    (0, _inherits3.default)(ResultItem, _React$Component);
+
+    function ResultItem() {
+        (0, _classCallCheck3.default)(this, ResultItem);
+        return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(ResultItem).apply(this, arguments));
+    }
+
+    (0, _createClass3.default)(ResultItem, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props;
+            var filter = _props.filter;
+            var filterType = _props.filterType;
+            var _props$data = _props.data;
+            var title = _props$data.title;
+            var genres = _props$data.genres;
+            var language = _props$data.language;
+
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    title
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    genres.map(function (genre, index) {
+                        return _react2.default.createElement(
+                            'span',
+                            {
+                                key: index,
+                                style: {
+                                    fontWeight: filterType === _constants.FILTER_GENRE && filter === genre ? 'bold' : 'normal'
+                                }
+                            },
+                            genre
+                        );
+                    })
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    language.map(function (lang, index) {
+                        return _react2.default.createElement(
+                            'span',
+                            {
+                                key: index,
+                                style: {
+                                    fontWeight: filterType === _constants.FILTER_LANG && filter === lang ? 'bold' : 'normal'
+                                }
+                            },
+                            lang
+                        );
+                    })
+                )
+            );
+        }
+    }]);
+    return ResultItem;
+}(_react2.default.Component), _class.propTypes = {
+    data: _react.PropTypes.shape({
+        title: _react.PropTypes.string,
+        genres: _react.PropTypes.arrayOf(_react.PropTypes.string)
+    }),
+    filter: _react.PropTypes.string,
+    filterType: _react.PropTypes.oneOf([_constants.FILTER_GENRE, _constants.FILTER_LANG])
+}, _temp);
+exports.default = ResultItem;
+
+},{"../constants":284,"babel-runtime/core-js/object/get-prototype-of":4,"babel-runtime/helpers/classCallCheck":8,"babel-runtime/helpers/createClass":9,"babel-runtime/helpers/inherits":10,"babel-runtime/helpers/possibleConstructorReturn":11,"react":270}],283:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _dec, _class, _class2, _temp;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _ResultItem = require('./ResultItem');
+
+var _ResultItem2 = _interopRequireDefault(_ResultItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function filterByGenre(filter, list) {
+    return list.filter(function (item) {
+        return item.genres.includes(filter);
+    });
+}
+
+function filterByLanguage(filter, list) {
+    return list.filter(function (item) {
+        return item.language.includes(filter);
+    });
+}
+
+function applyFilter(filterType, filter, list) {
+    switch (filterType) {
+        case 'genre':
+            return filterByGenre(filter, list);
+        case 'language':
+            return filterByLanguage(filter, list);
+        default:
+            return list;
+    }
+}
+
+function mapStateToProps(state) {
+    var _state$movies = state.movies;
+    var filter = _state$movies.filter;
+    var filterType = _state$movies.filterType;
+    var list = _state$movies.list;
+
+    var results = applyFilter(filterType, filter, list);
+
+    return {
+        results: results,
+        filterType: filterType,
+        filter: filter
     };
 }
 
@@ -22466,28 +22747,44 @@ var ResultList = (_dec = (0, _reactRedux.connect)(mapStateToProps), _dec(_class 
     (0, _createClass3.default)(ResultList, [{
         key: 'render',
         value: function render() {
-            var results = this.props.results;
+            var _props = this.props;
+            var results = _props.results;
+            var filterType = _props.filterType;
+            var filter = _props.filter;
 
             return _react2.default.createElement(
                 'div',
                 null,
                 results.map(function (item, index) {
-                    return _react2.default.createElement(
-                        'div',
-                        { key: index },
-                        item.title
-                    );
+                    return _react2.default.createElement(_ResultItem2.default, {
+                        key: index,
+                        data: item,
+                        filterType: filterType,
+                        filter: filter
+                    });
                 })
             );
         }
     }]);
     return ResultList;
 }(_react2.default.Component), _class2.propTypes = {
-    results: _react.PropTypes.array
+    results: _react.PropTypes.array,
+    filterType: _react.PropTypes.string,
+    filter: _react.PropTypes.string
 }, _temp)) || _class);
 exports.default = ResultList;
 
-},{"babel-runtime/core-js/object/get-prototype-of":4,"babel-runtime/helpers/classCallCheck":8,"babel-runtime/helpers/createClass":9,"babel-runtime/helpers/inherits":10,"babel-runtime/helpers/possibleConstructorReturn":11,"react":270,"react-redux":128}],282:[function(require,module,exports){
+},{"./ResultItem":282,"babel-runtime/core-js/object/get-prototype-of":4,"babel-runtime/helpers/classCallCheck":8,"babel-runtime/helpers/createClass":9,"babel-runtime/helpers/inherits":10,"babel-runtime/helpers/possibleConstructorReturn":11,"react":270,"react-redux":128}],284:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var FILTER_GENRE = exports.FILTER_GENRE = 'genre';
+var FILTER_LANG = exports.FILTER_LANG = 'language';
+var FILTER_TYPES = exports.FILTER_TYPES = [FILTER_GENRE, FILTER_LANG];
+
+},{}],285:[function(require,module,exports){
 'use strict';
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
@@ -22524,6 +22821,10 @@ var _store = require('./store');
 
 var _movies = require('./store/movies');
 
+var _Filter = require('./components/Filter');
+
+var _Filter2 = _interopRequireDefault(_Filter);
+
 var _ResultList = require('./components/ResultList');
 
 var _ResultList2 = _interopRequireDefault(_ResultList);
@@ -22547,7 +22848,12 @@ var App = function (_React$Component) {
             return _react2.default.createElement(
                 _reactRedux.Provider,
                 { store: store },
-                _react2.default.createElement(_ResultList2.default, null)
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_Filter2.default, null),
+                    _react2.default.createElement(_ResultList2.default, null)
+                )
             );
         }
     }]);
@@ -22556,7 +22862,7 @@ var App = function (_React$Component) {
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('App'));
 
-},{"./components/ResultList":281,"./store":283,"./store/movies":284,"babel-runtime/core-js/object/get-prototype-of":4,"babel-runtime/helpers/classCallCheck":8,"babel-runtime/helpers/createClass":9,"babel-runtime/helpers/inherits":10,"babel-runtime/helpers/possibleConstructorReturn":11,"react":270,"react-dom":125,"react-redux":128}],283:[function(require,module,exports){
+},{"./components/Filter":281,"./components/ResultList":283,"./store":286,"./store/movies":287,"babel-runtime/core-js/object/get-prototype-of":4,"babel-runtime/helpers/classCallCheck":8,"babel-runtime/helpers/createClass":9,"babel-runtime/helpers/inherits":10,"babel-runtime/helpers/possibleConstructorReturn":11,"react":270,"react-dom":125,"react-redux":128}],286:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22586,7 +22892,7 @@ function initializeStore() {
     }, initialState));
 }
 
-},{"./movies":284,"redux":277,"redux-thunk":271}],284:[function(require,module,exports){
+},{"./movies":287,"redux":277,"redux-thunk":271}],287:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22598,11 +22904,13 @@ var _assign = require('babel-runtime/core-js/object/assign');
 var _assign2 = _interopRequireDefault(_assign);
 
 exports.loadMovieData = loadMovieData;
+exports.setFilter = setFilter;
 exports.movies = movies;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var LOAD = 'LOAD';
+var SET_FILTER = 'SET_FILTER';
 
 function getGenres(data) {
     return data.reduce(function (memo, item) {
@@ -22648,6 +22956,16 @@ function loadMovieData() {
     };
 }
 
+function setFilter(filterType, filter) {
+    return {
+        type: SET_FILTER,
+        payload: {
+            filterType: filterType,
+            filter: filter
+        }
+    };
+}
+
 var defaultState = {
     list: [],
     genres: [],
@@ -22670,9 +22988,14 @@ function movies() {
                 languages: getLanguages(action.payload),
                 ratings: getRatings(action.payload)
             });
+        case SET_FILTER:
+            return (0, _assign2.default)({}, state, {
+                filterType: action.payload.filterType,
+                filter: action.payload.filter
+            });
         default:
             return state;
     }
 }
 
-},{"babel-runtime/core-js/object/assign":1}]},{},[282]);
+},{"babel-runtime/core-js/object/assign":1}]},{},[285]);
