@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { initializeStore } from './store';
 import { loadMovieData } from './store/movies';
+import './main.css'; // Global styles
 
 import Filter from './components/Filter';
 import ResultList from './components/ResultList';
