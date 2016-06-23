@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setFilter } from '../store/movies';
+import { setFilter, clearFilters } from '../store/movies';
 import {
     FILTER_LANG,
     FILTER_GENRE,
@@ -11,6 +11,7 @@ import {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         setFilter,
+        clearFilters,
     }, dispatch);
 }
 
@@ -94,6 +95,11 @@ class Filter extends React.Component {
                         <option key={index}>{item}</option>
                     )}
                 </select>
+                <button
+                    onClick={this.props.clearFilters}
+                >
+                    Clear filters
+                </button>
             </div>
         );
     }
