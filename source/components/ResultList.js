@@ -3,37 +3,22 @@ import { connect } from 'react-redux';
 
 import ResultItem from './ResultItem';
 
-function filterByGenre(filter, list) {
+function applyFilters(filters, list) {
+    const filterTypes = Object.keys(filters);
     return list.filter((item) => {
-        return item.genres.includes(filter);
+        return filterTypes.reduce((keep, filterType) => {
+                return keep && item[filterType].includes(filters[filterType]);
+        }, true);
     });
-}
-
-function filterByLanguage(filter, list) {
-    return list.filter((item) => {
-        return item.language.includes(filter);
-    });
-}
-
-function applyFilter(filterType, filter, list) {
-    switch (filterType) {
-    case 'genre':
-        return filterByGenre(filter, list);
-    case 'language':
-        return filterByLanguage(filter, list);
-    default:
-        return list;
-    }
 }
 
 function mapStateToProps(state) {
-    const { filter, filterType, list } = state.movies;
-    const results = applyFilter(filterType, filter, list);
+    const { filters, list } = state.movies;
+    const results = applyFilters(filters, list);
 
     return {
         results,
-        filterType,
-        filter,
+        filters,
     };
 }
 
@@ -41,20 +26,18 @@ function mapStateToProps(state) {
 class ResultList extends React.Component {
     static propTypes = {
         results: PropTypes.array,
-        filterType: PropTypes.string,
-        filter: PropTypes.string,
+        filters: PropTypes.object,
     }
 
     render() {
-        const { results, filterType, filter } = this.props;
+        const { results, filters } = this.props;
         return (
             <div>
                 {results.map((item, index) =>
                     <ResultItem
                         key={index}
                         data={item}
-                        filterType={filterType}
-                        filter={filter}
+                        filters={filters}
                     />
                 )}
             </div>

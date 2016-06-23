@@ -60,10 +60,19 @@ const defaultState = {
     genres: [],
     languages: [],
     ratings: [],
-    filterBy: null,
-    filter: null,
+    filters: {},
     pending: true,
 };
+
+function updateFilters(state, { filterType, filter }) {
+    const newState = Object.assign({}, state);
+    if (filter) {
+        newState[filterType] = filter;
+    } else {
+        delete newState[filterType];
+    }
+    return newState;
+}
 
 export function movies(state = defaultState, action) {
     switch (action.type) {
@@ -76,8 +85,7 @@ export function movies(state = defaultState, action) {
         });
     case SET_FILTER:
         return Object.assign({}, state, {
-            filterType: action.payload.filterType,
-            filter: action.payload.filter,
+            filters: updateFilters(state.filters, action.payload),
         });
     default:
         return state;

@@ -4,6 +4,26 @@ import {
     FILTER_LANG,
 } from '../constants';
 
+const Filterable = ({ item, filter }) => (
+    <span
+        style={{
+            padding: 4,
+            margin: 2,
+            fontSize: 12,
+            background: (filter === item) ? '#000' : '#EEE',
+            color: (filter === item) ? '#FFF' : '#000',
+        }}
+    >
+        {item}
+    </span>
+);
+
+Filterable.propTypes = {
+    item: PropTypes.string,
+    filter: PropTypes.string,
+};
+
+
 class ResultItem extends React.Component {
 
     static propTypes = {
@@ -11,18 +31,13 @@ class ResultItem extends React.Component {
             title: PropTypes.string,
             genres: PropTypes.arrayOf(PropTypes.string),
         }),
-        filter: PropTypes.string,
-        filterType: PropTypes.oneOf([
-            FILTER_GENRE,
-            FILTER_LANG,
-        ]),
+        filters: PropTypes.object,
     }
 
     render() {
         const {
-            filter,
-            filterType,
             data: { title, genres, language },
+            filters,
         } = this.props;
 
         return (
@@ -30,28 +45,20 @@ class ResultItem extends React.Component {
                 <h2>{title}</h2>
                 <p>
                     {genres.map((genre, index) =>
-                        <span
+                        <Filterable
                             key={index}
-                            style={{
-                                fontWeight: (filterType === FILTER_GENRE && filter === genre) ?
-                                    'bold' : 'normal',
-                            }}
-                        >
-                            {genre}
-                        </span>
+                            item={genre}
+                            filter={filters[FILTER_GENRE]}
+                        />
                     )}
                 </p>
                 <p>
                     {language.map((lang, index) =>
-                        <span
+                        <Filterable
                             key={index}
-                            style={{
-                                fontWeight: (filterType === FILTER_LANG && filter === lang) ?
-                                    'bold' : 'normal',
-                            }}
-                        >
-                            {lang}
-                        </span>
+                            item={lang}
+                            filter={filters[FILTER_LANG]}
+                        />
                     )}
                 </p>
             </div>
