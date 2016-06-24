@@ -4,7 +4,7 @@
   "description": "Qantas Developer Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register --watch",
+    "test": "mocha test/.setup.js test/**/*--spec.js --compilers js:babel-register --watch",
     "lint": "eslint source/**/*.js",
     "dev": "watchify -p [ css-modulesify -o http/assets/main.css ] source/main.js -o http/assets/main.js -v",
     "serve": "browser-sync start -s 'http' -f 'http' --no-online",
@@ -45,13 +45,16 @@
     "browserify": "^13.0.1",
     "chai": "^3.5.0",
     "css-modulesify": "^0.25.1",
+    "enzyme": "^2.3.0",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.9.2",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
+    "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
     "react-addons-test-utils": "^15.1.0",
+    "sinon": "^1.17.4",
     "watchify": "^3.7.0"
   }
 }
