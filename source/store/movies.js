@@ -26,7 +26,7 @@ function getLanguages(data) {
 
 function getRated(data) {
     return data.reduce((memo, item) => {
-        if (!memo.includes(item.rated)) {
+        if (item.rated && !memo.includes(item.rated)) {
             memo.push(item.rated);
         }
         return memo;
@@ -68,7 +68,6 @@ const defaultState = {
     languages: [],
     rated: [],
     filters: {},
-    pending: true,
 };
 
 function updateFilters(state, { filterType, filter }) {
