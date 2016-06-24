@@ -9,6 +9,8 @@ import {
     FILTER_TITLE,
 } from '../constants';
 
+import style from './Filter.css';
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         setFilter,
@@ -33,6 +35,7 @@ class Filter extends React.Component {
         rated: PropTypes.array,
         filters: PropTypes.object,
         setFilter: PropTypes.func,
+        clearFilters: PropTypes.func,
     }
 
     constructor(props) {
@@ -109,6 +112,7 @@ class Filter extends React.Component {
                     )}
                 </select>
                 <button
+                    className={style.btn}
                     onClick={this.props.clearFilters}
                 >
                     Clear filters
