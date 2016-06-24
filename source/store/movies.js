@@ -2,8 +2,9 @@ const LOAD = 'LOAD';
 const SET_FILTER = 'SET_FILTER';
 const CLEAR_FILTERS = 'CLEAR_FILTERS';
 
-function getGenres(data) {
+export function getGenres(data) {
     return data.reduce((memo, item) => {
+        if (!item.genres) return memo;
         item.genres.forEach((genre) => {
             if (!memo.includes(genre)) {
                 memo.push(genre);
@@ -13,7 +14,7 @@ function getGenres(data) {
     }, []);
 }
 
-function getLanguages(data) {
+export function getLanguages(data) {
     return data.reduce((memo, item) => {
         item.language.forEach((lang) => {
             if (!memo.includes(lang)) {
@@ -24,7 +25,7 @@ function getLanguages(data) {
     }, []);
 }
 
-function getRated(data) {
+export function getRated(data) {
     return data.reduce((memo, item) => {
         if (item.rated && !memo.includes(item.rated)) {
             memo.push(item.rated);
