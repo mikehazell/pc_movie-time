@@ -1,38 +1,12 @@
-const LOAD = 'LOAD';
-const SET_FILTER = 'SET_FILTER';
-const CLEAR_FILTERS = 'CLEAR_FILTERS';
+export const LOAD = 'LOAD';
+export const SET_FILTER = 'SET_FILTER';
+export const CLEAR_FILTERS = 'CLEAR_FILTERS';
 
-export function getGenres(data) {
-    return data.reduce((memo, item) => {
-        if (!item.genres) return memo;
-        item.genres.forEach((genre) => {
-            if (!memo.includes(genre)) {
-                memo.push(genre);
-            }
-        });
-        return memo;
-    }, []);
-}
-
-export function getLanguages(data) {
-    return data.reduce((memo, item) => {
-        item.language.forEach((lang) => {
-            if (!memo.includes(lang)) {
-                memo.push(lang);
-            }
-        });
-        return memo;
-    }, []);
-}
-
-export function getRated(data) {
-    return data.reduce((memo, item) => {
-        if (item.rated && !memo.includes(item.rated)) {
-            memo.push(item.rated);
-        }
-        return memo;
-    }, []);
-}
+import {
+    getRated,
+    getLanguages,
+    getGenres,
+} from './helpers';
 
 export function loadMovieData() {
     return (dispatch) => {
@@ -71,7 +45,7 @@ const defaultState = {
     filters: {},
 };
 
-function updateFilters(state, { filterType, filter }) {
+export function updateFilters(state, { filterType, filter }) {
     const newState = Object.assign({}, state);
     if (filter) {
         newState[filterType] = filter;

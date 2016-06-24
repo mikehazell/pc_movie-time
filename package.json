@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register --watch",
-    "lint": "eslint source/scripts/**",
+    "lint": "eslint source/**/*.js",
     "dev": "watchify -p [ css-modulesify -o http/assets/main.css ] source/main.js -o http/assets/main.js -v",
     "serve": "browser-sync start -s 'http' -f 'http' --no-online",
     "start": "browserify source/main.js -o http/assets/main.js"
@@ -17,7 +17,8 @@
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.0",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
   },
   "browserify": {
     "transform": [
@@ -50,6 +51,7 @@
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
     "mocha": "^2.5.3",
-    "react-addons-test-utils": "^15.1.0"
+    "react-addons-test-utils": "^15.1.0",
+    "watchify": "^3.7.0"
   }
 }
