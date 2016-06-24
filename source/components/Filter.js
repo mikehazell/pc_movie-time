@@ -20,10 +20,10 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        genres: state.movies.genres,
-        languages: state.movies.languages,
-        rated: state.movies.rated,
-        filters: state.movies.filters,
+        genres: state.genres,
+        languages: state.languages,
+        rated: state.rated,
+        filters: state.filters,
     };
 }
 

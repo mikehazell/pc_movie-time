@@ -25,7 +25,7 @@ function applyFilters(filters, list) {
 }
 
 function mapStateToProps(state) {
-    const { filters, list } = state.movies;
+    const { filters, list } = state;
     const results = applyFilters(filters, list);
 
     return {
