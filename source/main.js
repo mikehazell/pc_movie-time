@@ -5,7 +5,7 @@ import { initializeStore } from './store';
 import { loadMovieData } from './store/movies';
 import './main.css'; // Global styles
 
-import Filter from './components/Filter';
+import Header from './components/Header';
 import ResultList from './components/ResultList';
 
 const store = initializeStore();
@@ -16,7 +16,7 @@ class App extends React.Component {
         return (
             <Provider store={store}>
                 <div>
-                    <Filter />
+                    <Header />
                     <ResultList />
                 </div>
             </Provider>

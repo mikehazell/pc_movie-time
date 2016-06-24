@@ -9,6 +9,7 @@ import {
     FILTER_TITLE,
 } from '../constants';
 
+import SelectFilter from './SelectFilter';
 import style from './Filter.css';
 
 function mapDispatchToProps(dispatch) {
@@ -28,7 +29,7 @@ function mapStateToProps(state) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-class Filter extends React.Component {
+class Header extends React.Component {
     static propTypes = {
         genres: PropTypes.array,
         languages: PropTypes.array,
@@ -40,25 +41,7 @@ class Filter extends React.Component {
 
     constructor(props) {
         super(props);
-        this.handleGenreChange = this.handleGenreChange.bind(this);
-        this.handleLanguageChange = this.handleLanguageChange.bind(this);
-        this.handleRatedChange = this.handleRatedChange.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
-    }
-
-    handleLanguageChange() {
-        const newValue = this.refs.language.value;
-        this.props.setFilter(FILTER_LANG, newValue);
-    }
-
-    handleGenreChange() {
-        const newValue = this.refs.genre.value;
-        this.props.setFilter(FILTER_GENRE, newValue);
-    }
-
-    handleRatedChange() {
-        const newValue = this.refs.rating.value;
-        this.props.setFilter(FILTER_RATED, newValue);
     }
 
     handleSearchChange() {
@@ -73,6 +56,7 @@ class Filter extends React.Component {
             rated,
             filters,
         } = this.props;
+        console.log(typeof this.props.setFilter);
         return (
             <div>
                 <input
@@ -81,36 +65,27 @@ class Filter extends React.Component {
                     ref="search"
                     value={filters[FILTER_TITLE] || ''}
                 />
-                <select
-                    onChange={this.handleGenreChange}
-                    ref="genre"
+                <SelectFilter
+                    onChange={this.props.setFilter}
                     value={filters[FILTER_GENRE]}
-                >
-                    <option value="">Genre</option>
-                    {genres.map((item, index) =>
-                        <option key={index}>{item}</option>
-                    )}
-                </select>
-                <select
-                    onChange={this.handleLanguageChange}
-                    ref="language"
+                    label="Genre"
+                    filterType={FILTER_GENRE}
+                    items={genres}
+                />
+                <SelectFilter
+                    onChange={this.props.setFilter}
                     value={filters[FILTER_LANG]}
-                >
-                    <option value="">Language</option>
-                    {languages.map((item, index) =>
-                        <option key={index}>{item}</option>
-                    )}
-                </select>
-                <select
-                    onChange={this.handleRatedChange}
-                    ref="rating"
+                    label="Language"
+                    filterType={FILTER_LANG}
+                    items={languages}
+                />
+                <SelectFilter
+                    onChange={this.props.setFilter}
                     value={filters[FILTER_RATED]}
-                >
-                    <option value="">Rated</option>
-                    {rated.map((item, index) =>
-                        <option key={index}>{item}</option>
-                    )}
-                </select>
+                    label="Rated"
+                    filterType={FILTER_RATED}
+                    items={rated}
+                />
                 <button
                     className={style.btn}
                     onClick={this.props.clearFilters}
@@ -122,4 +97,4 @@ class Filter extends React.Component {
     }
 }
 
-export default Filter;
+export default Header;
