@@ -6,6 +6,7 @@ import {
     FILTER_LANG,
     FILTER_GENRE,
     FILTER_RATED,
+    FILTER_TITLE,
 } from '../constants';
 
 function mapDispatchToProps(dispatch) {
@@ -39,6 +40,7 @@ class Filter extends React.Component {
         this.handleGenreChange = this.handleGenreChange.bind(this);
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
         this.handleRatedChange = this.handleRatedChange.bind(this);
+        this.handleSearchChange = this.handleSearchChange.bind(this);
     }
 
     handleLanguageChange() {
@@ -56,6 +58,11 @@ class Filter extends React.Component {
         this.props.setFilter(FILTER_RATED, newValue);
     }
 
+    handleSearchChange() {
+        const newValue = this.refs.search.value;
+        this.props.setFilter(FILTER_TITLE, newValue);
+    }
+
     render() {
         const {
             genres,
@@ -65,6 +72,12 @@ class Filter extends React.Component {
         } = this.props;
         return (
             <div>
+                <input
+                    type="search"
+                    onChange={this.handleSearchChange}
+                    ref="search"
+                    value={filters[FILTER_TITLE] || ''}
+                />
                 <select
                     onChange={this.handleGenreChange}
                     ref="genre"

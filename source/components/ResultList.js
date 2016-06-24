@@ -2,17 +2,21 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {
     FILTER_RATED,
+    FILTER_TITLE,
 } from '../constants';
 
 import ResultItem from './ResultItem';
 
 function applyFilters(filters, list) {
     const filterTypes = Object.keys(filters);
+    const titleReg = new RegExp(filters[FILTER_TITLE], 'i');
     return list.filter((item) => {
         return filterTypes.reduce((keep, filterType) => {
             switch (filterType) {
             case FILTER_RATED:
                 return keep && item[filterType] === filters[filterType];
+            case FILTER_TITLE:
+                return keep && item[filterType].match(titleReg) !== null;
             default:
                 return keep && item[filterType].includes(filters[filterType]);
             }
