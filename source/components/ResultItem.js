@@ -42,6 +42,7 @@ class ResultItem extends React.Component {
             title: PropTypes.string,
             genres: PropTypes.arrayOf(PropTypes.string),
             language: PropTypes.arrayOf(PropTypes.string),
+            rating: PropTypes.number,
         }),
         filters: PropTypes.object,
     }
@@ -49,12 +50,15 @@ class ResultItem extends React.Component {
     render() {
         const {
             filters,
-            data: { title, genres, language, rated },
+            data: { title, genres, language, rated, rating },
         } = this.props;
 
         return (
             <div className={styles.item}>
                 <h2>{title}</h2>
+                <p>
+                    {rating}
+                </p>
                 <p>
                     {genres.map((genre, index) =>
                         <Filterable
