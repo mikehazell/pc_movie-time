@@ -41,6 +41,7 @@ class ResultItem extends React.Component {
         data: PropTypes.shape({
             title: PropTypes.string,
             genres: PropTypes.arrayOf(PropTypes.string),
+            language: PropTypes.arrayOf(PropTypes.string),
         }),
         filters: PropTypes.object,
     }
