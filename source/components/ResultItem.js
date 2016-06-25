@@ -30,7 +30,21 @@ class ResultItem extends React.Component {
             <div className={styles.item}>
                 <div className="row">
                     <div className="col span_4">
-                        <h2 className={styles.item__title}>{title}</h2>
+                        <h2 className={styles.item__title}>
+                            {title}
+                            <a
+                                href={`https://www.rottentomatoes.com/search/?search=${encodeURIComponent(title)}`}
+                                target="_blank"
+                            >
+                                <span className={styles.tomato} />
+                            </a>
+                            <a
+                                href={`https://www.youtube.com/results?search_query=${encodeURIComponent(title)}`}
+                                target="_blank"
+                            >
+                                <span className={styles.youtube} />
+                            </a>
+                        </h2>
                     </div>
                     <div className="col span_4">
                         <div className={styles.item__genres}>
