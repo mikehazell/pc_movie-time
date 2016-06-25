@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import {
     FILTER_GENRE,
     FILTER_LANG,
@@ -7,36 +6,7 @@ import {
 } from '../constants';
 
 import styles from './ResultItem.css';
-import { setFilter } from '../store/movies';
-
-function mapDispatchToProps(dispatch, { item, filter, filterType }) {
-    // If this item is already selected,
-    // clicking will clear the filter.
-    const valueOrEmpty = filter === item ? '' : item;
-    return {
-        onClick: () => dispatch(setFilter(filterType, valueOrEmpty)),
-    };
-}
-
-const Filterable = connect(null, mapDispatchToProps)(({ item, filter, onClick }) => (
-    <button
-        onClick={onClick}
-        className={styles.filterable}
-        style={{
-            background: (filter === item) ? '#000' : '#EEE',
-            color: (filter === item) ? '#FFF' : '#000',
-        }}
-    >
-        {item}
-    </button>
-));
-
-Filterable.propTypes = {
-    item: PropTypes.string,
-    filter: PropTypes.string,
-    filterType: PropTypes.string,
-};
-
+import Filterable from './Filterable';
 
 class ResultItem extends React.Component {
 

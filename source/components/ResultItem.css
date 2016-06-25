@@ -41,15 +41,4 @@
 .item__genres {}
 .item__rated {}
 
-.filterable {
-    cursor: pointer;
-    fontSize: 12px;
-    margin: 2px;
-    padding: 0 1em;
-    border: 1px solid #ccc;
-    border-radius: 2em;
-    height: 2em;
-}
-.filterable:hover {
-    border-color: #000;
 }
