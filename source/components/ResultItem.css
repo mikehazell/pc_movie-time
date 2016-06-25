@@ -1,11 +1,16 @@
 .item {
-    /*border: 1px solid #ccc;*/
     position: relative;
     padding: 1em 0;
     margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(55, 55, 55, 0.1);
+    box-shadow: 0 1px 5px rgba(55, 55, 55, 0.1);
+    transition: box-shadow .3s linear;
 }
-.item:after {
+
+.item:hover {
+    box-shadow: 0 0px 5px rgba(55, 55, 55, 0.5);
+}
+
+.item::after {
     content: '';
     display: table;
     clear: both;
@@ -20,21 +25,18 @@
     margin-top: 0;
     margin-bottom: 0;
     font-weight: 200;
-    /*padding-bottom: .5em;*/
     padding-left: 10px;
     font-size: 1.3em
 }
 
 .item__rating {
     text-align: center;
-    /*padding-right: 10px;*/
 }
 .item__rating::after {
     content: 'Rating';
     display: block;
     font-size: 0.6em;
     color: #888;
-    /*text-align: right;*/
 }
 
 .item__languages {}
