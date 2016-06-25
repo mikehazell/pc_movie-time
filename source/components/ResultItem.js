@@ -9,9 +9,12 @@ import {
 import styles from './ResultItem.css';
 import { setFilter } from '../store/movies';
 
-function mapDispatchToProps(dispatch, { item, filterType }) {
+function mapDispatchToProps(dispatch, { item, filter, filterType }) {
+    // If this item is already selected,
+    // clicking will clear the filter.
+    const valueOrEmpty = filter === item ? '' : item;
     return {
-        onClick: () => dispatch(setFilter(filterType, item)),
+        onClick: () => dispatch(setFilter(filterType, valueOrEmpty)),
     };
 }
 
