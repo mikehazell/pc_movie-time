@@ -1,6 +1,45 @@
 .item {
     /*border: 1px solid #ccc;*/
+    position: relative;
+    padding: 1em 0;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(55, 55, 55, 0.1);
 }
+.item:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.item__head {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1em;
+}
+
+.item__title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 200;
+    /*padding-bottom: .5em;*/
+    padding-left: 10px;
+    font-size: 1.3em
+}
+
+.item__rating {
+    text-align: center;
+    /*padding-right: 10px;*/
+}
+.item__rating::after {
+    content: 'Rating';
+    display: block;
+    font-size: 0.6em;
+    color: #888;
+    /*text-align: right;*/
+}
+
+.item__languages {}
+.item__genres {}
+.item__rated {}
 
 .filterable {
     cursor: pointer;

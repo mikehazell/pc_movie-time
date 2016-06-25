@@ -9,8 +9,9 @@ import {
     FILTER_TITLE,
 } from '../constants';
 
+import TextFilter from './TextFilter';
 import SelectFilter from './SelectFilter';
-import style from './Filter.css';
+import styles from './Header.css';
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
@@ -39,16 +40,6 @@ class Header extends React.Component {
         clearFilters: PropTypes.func,
     }
 
-    constructor(props) {
-        super(props);
-        this.handleSearchChange = this.handleSearchChange.bind(this);
-    }
-
-    handleSearchChange() {
-        const newValue = this.refs.search.value;
-        this.props.setFilter(FILTER_TITLE, newValue);
-    }
-
     render() {
         const {
             genres,
@@ -56,42 +47,54 @@ class Header extends React.Component {
             rated,
             filters,
         } = this.props;
-        console.log(typeof this.props.setFilter);
+
         return (
-            <div>
-                <input
-                    type="search"
-                    onChange={this.handleSearchChange}
-                    ref="search"
-                    value={filters[FILTER_TITLE] || ''}
-                />
-                <SelectFilter
-                    onChange={this.props.setFilter}
-                    value={filters[FILTER_GENRE]}
-                    label="Genre"
-                    filterType={FILTER_GENRE}
-                    items={genres}
-                />
-                <SelectFilter
-                    onChange={this.props.setFilter}
-                    value={filters[FILTER_LANG]}
-                    label="Language"
-                    filterType={FILTER_LANG}
-                    items={languages}
-                />
-                <SelectFilter
-                    onChange={this.props.setFilter}
-                    value={filters[FILTER_RATED]}
-                    label="Rated"
-                    filterType={FILTER_RATED}
-                    items={rated}
-                />
-                <button
-                    className={style.btn}
-                    onClick={this.props.clearFilters}
-                >
-                    Clear filters
-                </button>
+            <div className={styles.header}>
+                <div className="row">
+                    <div className="col span_4">
+                        <TextFilter
+                            onChange={this.props.setFilter}
+                            value={filters[FILTER_TITLE]}
+                            filterType={FILTER_TITLE}
+                            label="Search by title"
+                        />
+                    </div>
+                    <div className="col span_4">
+                        <SelectFilter
+                            onChange={this.props.setFilter}
+                            value={filters[FILTER_GENRE]}
+                            label="Genre"
+                            filterType={FILTER_GENRE}
+                            items={genres}
+                        />
+                    </div>
+                    <div className="col span_2">
+                        <SelectFilter
+                            onChange={this.props.setFilter}
+                            value={filters[FILTER_LANG]}
+                            label="Language"
+                            filterType={FILTER_LANG}
+                            items={languages}
+                        />
+                    </div>
+                    <div className="col span_1">
+                        <SelectFilter
+                            onChange={this.props.setFilter}
+                            value={filters[FILTER_RATED]}
+                            label="Rated"
+                            filterType={FILTER_RATED}
+                            items={rated}
+                        />
+                    </div>
+                    <div className="col span_1">
+                        <button
+                            className={styles.btn}
+                            onClick={this.props.clearFilters}
+                        >
+                            Clear filters
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }

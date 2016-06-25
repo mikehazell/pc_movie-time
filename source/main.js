@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { initializeStore } from './store';
 import { loadMovieData } from './store/movies';
 import './main.css'; // Global styles
+import './grid.css'; // Global styles
 
 import Header from './components/Header';
 import ResultList from './components/ResultList';

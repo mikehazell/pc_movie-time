@@ -6,6 +6,7 @@ import {
 } from '../constants';
 
 import ResultItem from './ResultItem';
+import styles from './ResultList.css';
 
 function applyFilters(filters, list) {
     const filterTypes = Object.keys(filters);
@@ -44,7 +45,7 @@ class ResultList extends React.Component {
     render() {
         const { results, filters } = this.props;
         return (
-            <div>
+            <div className={styles.container}>
                 {results.map((item, index) =>
                     <ResultItem
                         key={index}

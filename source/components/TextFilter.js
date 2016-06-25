@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
-import styles from './SelectFilter.css';
+import styles from './TextFilter.css';
 
-class SelectFilter extends React.Component {
+class TextFilter extends React.Component {
 
     static propTypes = {
         filterType: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
-        items: PropTypes.array.isRequired,
-        label: PropTypes.string.isRequired,
         value: PropTypes.string,
+        label: PropTypes.string,
     }
 
     constructor(props) {
@@ -22,20 +21,17 @@ class SelectFilter extends React.Component {
     }
 
     render() {
-        const { value, items, label } = this.props;
+        const { value, label } = this.props;
         return (
-            <select
+            <input
+                type="search"
                 onChange={this.handleChange}
                 value={value || ''}
-                className={styles['select-ui']}
-            >
-                <option value="">{label}</option>
-                {items.map((item, index) =>
-                    <option key={index}>{item}</option>
-                )}
-            </select>
+                className={styles['input-ui']}
+                placeholder={label}
+            />
         );
     }
 }
 
-export default SelectFilter;
+export default TextFilter;
