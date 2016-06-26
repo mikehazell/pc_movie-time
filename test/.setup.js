@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import cssHook from 'css-modules-require-hook';
 import { jsdom } from 'jsdom';
 
