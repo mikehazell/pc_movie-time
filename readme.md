@@ -5,10 +5,12 @@ Movie Time is a response to a programming Challenge.
 Please use a recent node version. This has been tested with node v4.3 and v6.2.
 
 ## Quick start
-
-- git clone
-- npm install
-- npm start (runs tests, build and starts a local server)
+```shell
+git clone git@github.com:mikehazell/pc_movie-time.git
+cd pc_movie-time
+npm install
+npm start  # run tests, build and start a local server
+```
 
 ![Movie Time](screenshot.png)
 
@@ -33,4 +35,4 @@ If I were to put more time into this I would be looking at the following areas:
 - Filter by multiple genres / languages
 - Order results by rating / title
 - Transition animations when filtering the results
-- When changing filter by clicking on a reulst button, highlight the result so it is easier to find after transitions.
+- When changing filter by clicking on a result button, highlight the result so it is easier to find after transitions.
