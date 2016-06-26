@@ -1,4 +1,7 @@
+import cssHook from 'css-modules-require-hook';
 import { jsdom } from 'jsdom';
+
+cssHook({ extensions: ['.css'] });
 
 const exposedProperties = ['window', 'navigator', 'document'];
 
@@ -14,5 +17,3 @@ Object.keys(document.defaultView).forEach((property) => {
 global.navigator = {
     userAgent: 'node.js',
 };
-
-// documentRef = document;
