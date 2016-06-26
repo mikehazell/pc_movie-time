@@ -5,10 +5,12 @@ Movie Time is a response to a programming Challenge.
 Please use a recent node version. This has been tested with node v4.3 and v6.2.
 
 ## Quick start
-
-- git clone
-- npm install
-- npm start (runs tests, build and starts a local server)
+```shell
+git clone git@github.com:mikehazell/pc_movie-time.git
+cd pc_movie-time
+npm install
+npm start  # run tests, build and start a local server
+```
 
 ![Movie Time](screenshot.png)
 
