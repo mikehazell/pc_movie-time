@@ -1,14 +1,16 @@
 {
   "name": "movie-time",
   "version": "1.0.0",
-  "description": "Qantas Developer Challenge",
+  "description": "Developer Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/.setup.js test/**/*--spec.js --compilers js:babel-register --watch",
-    "lint": "eslint source/**/*.js",
-    "dev": "watchify -p [ css-modulesify -o http/assets/main.css ] source/main.js -o http/assets/main.js -v",
+    "test": "mocha test/.setup.js test/**/*--spec.js --compilers js:babel-register",
+    "build": "mkdir -p http/assets && browserify -p [ css-modulesify -o http/assets/main.css ] source/main.js -o http/assets/main.js -v",
     "serve": "browser-sync start -s 'http' -f 'http' --no-online",
-    "start": "browserify source/main.js -o http/assets/main.js"
+    "dev:test": "npm test -- --watch",
+    "dev:build": "mkdir -p http/assets && watchify -p [ css-modulesify -o http/assets/main.css ] source/main.js -o http/assets/main.js -v",
+    "lint": "eslint source/**/*.js",
+    "start": "npm test && npm run build && npm run serve"
   },
   "author": "Michael Hazell",
   "license": "ISC",
@@ -26,9 +28,6 @@
       [
         "babelify"
       ]
-    ],
-    "plugins": [
-      "css-modulesify"
     ]
   },
   "devDependencies": {
@@ -51,6 +50,7 @@
     "enzyme": "^2.3.0",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
+    "eslint-config-airbnb-base": "^3.0.1",
     "eslint-plugin-import": "^1.9.2",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
