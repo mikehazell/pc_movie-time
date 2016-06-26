@@ -33,4 +33,4 @@ If I were to put more time into this I would be looking at the following areas:
 - Filter by multiple genres / languages
 - Order results by rating / title
 - Transition animations when filtering the results
-- When changing filter by clicking on a reulst button, highlight the result so it is easier to find after transitions.
+- When changing filter by clicking on a result button, highlight the result so it is easier to find after transitions.
