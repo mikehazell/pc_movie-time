@@ -5,25 +5,8 @@ import {
     FILTER_RATED,
 } from '../constants';
 
-const Filterable = ({ item, filter }) => (
-    <span
-        style={{
-            padding: 4,
-            margin: 2,
-            fontSize: 12,
-            background: (filter === item) ? '#000' : '#EEE',
-            color: (filter === item) ? '#FFF' : '#000',
-        }}
-    >
-        {item}
-    </span>
-);
-
-Filterable.propTypes = {
-    item: PropTypes.string,
-    filter: PropTypes.string,
-};
-
+import styles from './ResultItem.css';
+import Filterable from './Filterable';
 
 class ResultItem extends React.Component {
 
@@ -31,6 +14,8 @@ class ResultItem extends React.Component {
         data: PropTypes.shape({
             title: PropTypes.string,
             genres: PropTypes.arrayOf(PropTypes.string),
+            language: PropTypes.arrayOf(PropTypes.string),
+            rating: PropTypes.number,
         }),
         filters: PropTypes.object,
     }
@@ -38,39 +23,69 @@ class ResultItem extends React.Component {
     render() {
         const {
             filters,
-            data: { title, genres, language, rated },
+            data: { title, genres, language, rated, rating },
         } = this.props;
 
         return (
-            <div>
-                <h2>{title}</h2>
-                <p>
-                    {genres.map((genre, index) =>
-                        <Filterable
-                            key={index}
-                            item={genre}
-                            filter={filters[FILTER_GENRE]}
-                        />
-                    )}
-                </p>
-                <p>
-                    {language.map((lang, index) =>
-                        <Filterable
-                            key={index}
-                            item={lang}
-                            filter={filters[FILTER_LANG]}
-                        />
-                    )}
-                </p>
-                <p>
-                    {rated ?
-                        <Filterable
-                            item={rated}
-                            filter={filters[FILTER_RATED]}
-                        />
-                        : null
-                    }
-                </p>
+            <div className={styles.item}>
+                <div className="row">
+                    <div className="col span_4">
+                        <h2 className={styles.item__title}>
+                            {title}
+                            <a
+                                href={`https://www.rottentomatoes.com/search/?search=${encodeURIComponent(title)}`}
+                                target="_blank"
+                            >
+                                <span className={styles.tomato} />
+                            </a>
+                            <a
+                                href={`https://www.youtube.com/results?search_query=${encodeURIComponent(title)}`}
+                                target="_blank"
+                            >
+                                <span className={styles.youtube} />
+                            </a>
+                        </h2>
+                    </div>
+                    <div className="col span_4">
+                        <div className={styles.item__genres}>
+                            {genres.map((genre, index) =>
+                                <Filterable
+                                    key={index}
+                                    item={genre}
+                                    filter={filters[FILTER_GENRE]}
+                                    filterType={FILTER_GENRE}
+                                />
+                            )}
+                        </div>
+                    </div>
+                    <div className="col span_2">
+                        <div className={styles.item__languages}>
+                            {language.map((lang, index) =>
+                                <Filterable
+                                    key={index}
+                                    item={lang}
+                                    filter={filters[FILTER_LANG]}
+                                    filterType={FILTER_LANG}
+                                />
+                            )}
+                        </div>
+                    </div>
+                    <div className="col span_1">
+                        <div className={styles.item__rated}>
+                            {rated ?
+                                <Filterable
+                                    item={rated}
+                                    filter={filters[FILTER_RATED]}
+                                    filterType={FILTER_RATED}
+                                />
+                            : <span>&nbsp;</span>
+                            }
+                        </div>
+                    </div>
+                    <div className="col span_1">
+                        <div className={styles.item__rating}>{rating}</div>
+                    </div>
+                </div>
             </div>
         );
     }

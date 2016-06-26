@@ -1,0 +1,22 @@
+.filterable {
+    background: #EEE;
+    cursor: pointer;
+    margin-right: .5em;
+    margin-top: .25em;
+    margin-bottom: .25em;
+    padding: 0 1em;
+    border: 1px solid #ccc;
+    border-radius: 2em;
+    height: 2.2em;
+    color: #000;
+    outline: none;
+}
+.filterable:hover {
+    border-color: #000;
+}
+
+.filterable--selected {
+    background: #999;
+    border-color: #666;
+    color: #FFF;
+}

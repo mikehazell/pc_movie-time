@@ -1,36 +1,12 @@
-const LOAD = 'LOAD';
-const SET_FILTER = 'SET_FILTER';
+export const LOAD = 'LOAD';
+export const SET_FILTER = 'SET_FILTER';
+export const CLEAR_FILTERS = 'CLEAR_FILTERS';
 
-function getGenres(data) {
-    return data.reduce((memo, item) => {
-        item.genres.forEach((genre) => {
-            if (!memo.includes(genre)) {
-                memo.push(genre);
-            }
-        });
-        return memo;
-    }, []);
-}
-
-function getLanguages(data) {
-    return data.reduce((memo, item) => {
-        item.language.forEach((lang) => {
-            if (!memo.includes(lang)) {
-                memo.push(lang);
-            }
-        });
-        return memo;
-    }, []);
-}
-
-function getRated(data) {
-    return data.reduce((memo, item) => {
-        if (!memo.includes(item.rated)) {
-            memo.push(item.rated);
-        }
-        return memo;
-    }, []);
-}
+import {
+    getRated,
+    getLanguages,
+    getGenres,
+} from './helpers';
 
 export function loadMovieData() {
     return (dispatch) => {
@@ -55,16 +31,21 @@ export function setFilter(filterType, filter) {
     };
 }
 
+export function clearFilters() {
+    return {
+        type: CLEAR_FILTERS,
+    };
+}
+
 const defaultState = {
     list: [],
     genres: [],
     languages: [],
     rated: [],
     filters: {},
-    pending: true,
 };
 
-function updateFilters(state, { filterType, filter }) {
+export function updateFilters(state, { filterType, filter }) {
     const newState = Object.assign({}, state);
     if (filter) {
         newState[filterType] = filter;
@@ -86,6 +67,10 @@ export function movies(state = defaultState, action) {
     case SET_FILTER:
         return Object.assign({}, state, {
             filters: updateFilters(state.filters, action.payload),
+        });
+    case CLEAR_FILTERS:
+        return Object.assign({}, state, {
+            filters: {},
         });
     default:
         return state;
